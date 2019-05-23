@@ -1,0 +1,10 @@
+{
+    "name": "rpage/php-mysql-heroku",
+    "authors": [
+        {
+            "name": "Roderic Page",
+            "email": "rdmpage@gmail.com"
+        }
+    ],
+    "require": {}
+}
