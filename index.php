@@ -9,7 +9,9 @@ $cleardb_username = $cleardb_url["user"];
 $cleardb_password = $cleardb_url["pass"];
 $cleardb_db       = substr($cleardb_url["path"],1);
 
+echo '<pre>';
 print_r($cleardb_url);
+echo '</pre>';
 
 $db = NewADOConnection('mysqli');
 $db->Connect(
@@ -31,7 +33,7 @@ if ($result == false) die("failed [" . __LINE__ . "]: " . $sql);
 
 while (!$result->EOF) 
 {
-	echo $result->fields['pdf'] . "\n";
+	echo $result->fields['pdf'] . "<br />";
 
 	$result->MoveNext();
 }
