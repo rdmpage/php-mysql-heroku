@@ -32,7 +32,32 @@ You will be prompted for the database password (or you can put it in the command
 
 ```mysql -u bd7aff43608547 -h us-cdbr-iron-east-02.cleardb.net -p heroku_e025d395e9cd915 < data.sql```
 
+- To talk to the MySQL database I will use adodb5, which is old but simplifies some things. To get the information needed to connection we parse the database URL using hint from [Using MySQL on Heroku](https://scotch.io/@phalconVee/using-mysql-on-heroku)
 
+```
+$cleardb_url      = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$cleardb_server   = $cleardb_url["host"];
+$cleardb_username = $cleardb_url["user"];
+$cleardb_password = $cleardb_url["pass"];
+$cleardb_db       = substr($cleardb_url["path"],1);
+```
+
+Then connect to the database:
+
+```
+$db = NewADOConnection('mysqli');
+$db->Connect(
+	$cleardb_server,
+	$cleardb_username,
+	$cleardb_password,
+	$cleardb_db);
+
+// Ensure fields are (only) indexed by column name
+$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+
+// Use UTF-8
+$db->EXECUTE("set names 'utf8'"); 
+```
 
 
 
